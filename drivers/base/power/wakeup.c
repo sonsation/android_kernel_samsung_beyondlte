@@ -16,6 +16,9 @@
 #include <linux/debugfs.h>
 #include <linux/pm_wakeirq.h>
 #include <linux/types.h>
+#ifdef CONFIG_WAKELOCK_BLOCKER
+#include <linux/wakelock_blocker.h>
+#endif
 #ifdef CONFIG_SEC_PM_DEBUG
 #include <linux/fb.h>
 #include <linux/irq.h>
@@ -569,6 +572,10 @@ static void wakeup_source_activate(struct wakeup_source *ws)
  */
 static void wakeup_source_report_event(struct wakeup_source *ws, bool hard)
 {
+#ifdef CONFIG_WAKELOCK_BLOCKER
+	if(check_wakelock(ws))
+		return;
+#endif
 	ws->event_count++;
 	/* This is racy, but the counter is approximate anyway. */
 	if (events_check_enabled)

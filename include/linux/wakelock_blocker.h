@@ -23,7 +23,7 @@
 #define MAJOR_VERSION "1.0"
 #define MAX_NAME_LEN  255
 #define DEFAULT_ENABLED true
-#define DEFAULT_LIST ""
+#define DEFAULT_LIST "ssp_comm_wake_lock ssp_wake_lock tsp_wakelock umts_ipc0 umts_ipc1 mmc0_detect"
 
 struct wake_item {
 	char wake_name[MAX_NAME_LEN];
